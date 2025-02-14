@@ -8,79 +8,70 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Fix: Fast Scrolling */
-        html {
-            scroll-behavior: auto;
-            overflow-x: hidden;
-        }
-
         body {
             background-color: #ffdde1;
             font-family: 'Pacifico', cursive;
             text-align: center;
             color: #ff4d6d;
             padding: 20px;
-            position: relative;
+            overflow-x: hidden;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 8px rgba(255, 0, 100, 0.2);
-            position: relative;
-        }
-
-        /* Heart Animation */
-        .heart {
-            position: absolute;
-            font-size: 25px;
-            color: red;
-            animation: float 2s infinite ease-in-out;
+        /* Floating Hearts */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
 
-        /* Fix: Optimize Image Load */
-        .gallery img {
-            width: 140px;
-            height: 140px;
-            border-radius: 8px;
-            margin: 10px;
-            border: 4px solid #ff4d6d;
-            transition: transform 0.3s ease-in-out;
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 80%, 18% 100%, 0% 38%);
+            animation: float 5s linear infinite;
         }
 
-        .gallery img:hover {
-            transform: scale(1.1);
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
         }
 
+        /* Memory Photo */
+        .memory img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            border: 10px solid red;
+            padding: 10px;
+            background: white;
+        }
+
+        /* Button */
         button {
             background-color: #ff4d6d;
             color: white;
-            padding: 10px 18px;
-            font-size: 16px;
+            padding: 10px 20px;
+            font-size: 18px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
             transition: 0.3s;
         }
 
@@ -90,32 +81,32 @@
 
         /* Hidden Message */
         #message {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-top: 15px;
-            padding: 10px;
+            padding: 15px;
             background-color: #ffe0f7;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.3);
             display: none;
-            box-shadow: 0px 2px 8px rgba(255, 0, 100, 0.2);
         }
 
-        /* Music */
-        #loveMusic {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
+    <!-- Floating Hearts -->
+    <div class="hearts"></div>
+
+    <!-- Background Music (Auto-Playing) -->
+    <audio autoplay loop>
+        <source src="love_song.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
 
-        <!-- Floating Hearts -->
-        <div class="heart" style="top: 10px; left: 20px;">❤️</div>
-        <div class="heart" style="top: 40px; right: 30px;">💖</div>
-
-        <!-- Photo Gallery -->
-        <div class="gallery">
+        <!-- Photo Memory with Heart Frame -->
+        <div class="memory">
             <img src="memory1.jpg" alt="Memory 1">
         </div>
 
@@ -141,20 +132,30 @@
         </div>
     </div>
 
-    <!-- Background Music -->
-    <audio id="loveMusic" autoplay loop>
-        <source src="love_song.mp3" type="audio/mp3">
-    </audio>
-
     <script>
-        document.getElementById("showMessageBtn").addEventListener("click", function() {
-            document.getElementById("message").style.display = "block";
-            this.style.display = "none"; // Hide button after clicking
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const button = document.getElementById("showMessageBtn");
+            const message = document.getElementById("message");
 
-        // Play music automatically on page load
-        window.addEventListener("load", function() {
-            document.getElementById("loveMusic").play();
+            button.addEventListener("click", function() {
+                message.style.display = "block";
+                button.style.display = "none";
+            });
+
+            // Floating Hearts Effect
+            function createHeart() {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.querySelector(".hearts").appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+
+            setInterval(createHeart, 300);
         });
     </script>
 
