@@ -13,6 +13,8 @@
             text-align: center;
             color: #ff4d6d;
             padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
         h1 {
@@ -27,13 +29,18 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
+            position: relative;
+            z-index: 2;
         }
 
         .gallery img {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 10px;
             margin: 10px;
+            border: 5px solid red; /* Heart Frame Effect */
+            padding: 5px;
+            background: pink;
             transition: transform 0.3s ease-in-out;
         }
 
@@ -75,16 +82,36 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-200px) scale(1.5); opacity: 0.7; }
+            100% { transform: translateY(-400px) scale(2); opacity: 0; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Love Song (Auto Play) -->
+    <audio autoplay loop>
+        <source src="love_song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
-        
+
         <!-- Photo Gallery -->
         <div class="gallery">
-            <img src="images/memory1.jpg" alt="Memory 1">
+            <img src="./memory1.jpg" alt="Memory 1">
         </div>
 
         <!-- Button to Reveal Message -->
@@ -118,6 +145,25 @@
                 message.style.display = "block";
                 button.style.display = "none";
             });
+
+            // Create Floating Hearts
+            function createHeart() {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                document.body.appendChild(heart);
+
+                const size = Math.random() * 20 + 10 + "px";
+                heart.style.fontSize = size;
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+
+            setInterval(createHeart, 300);
         });
     </script>
 
