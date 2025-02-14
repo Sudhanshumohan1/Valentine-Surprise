@@ -14,6 +14,7 @@
             color: #ff4d6d;
             padding: 20px;
             overflow: hidden;
+            position: relative;
         }
 
         h1 {
@@ -29,18 +30,21 @@
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
             position: relative;
+            z-index: 2;
         }
 
-        .heart-frame {
+        .gallery img {
             width: 150px;
             height: 150px;
-            background: url('memory1.jpg') center/cover;
-            clip-path: path("M 75,20 C 50,-10 0,30 0,80 C 0,130 75,180 75,180 C 75,180 150,130 150,80 C 150,30 100,-10 75,20 Z");
-            margin: auto;
+            border-radius: 10px;
+            margin: 10px;
+            border: 5px solid red; /* Heart Frame Effect */
+            padding: 5px;
+            background: pink;
             transition: transform 0.3s ease-in-out;
         }
 
-        .heart-frame:hover {
+        .gallery img:hover {
             transform: scale(1.1);
         }
 
@@ -79,53 +83,36 @@
             to { opacity: 1; }
         }
 
-        @keyframes floatHearts {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100vh); }
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: float 5s infinite ease-in-out;
         }
 
-        .heart {
-            position: fixed;
-            bottom: 0;
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            clip-path: path("M24.8,8c0-4.4-3.6-8-8-8s-8,3.6-8,8c0,3,1.8,5.6,4.4,6.9l3.6,7.1l3.6-7.1C23,13.6,24.8,11,24.8,8z");
-            animation: floatHearts 4s linear infinite;
-            opacity: 0.8;
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-200px) scale(1.5); opacity: 0.7; }
+            100% { transform: translateY(-400px) scale(2); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Hearts -->
-    <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            document.body.appendChild(heart);
-
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }
-
-        setInterval(createHeart, 300);
-    </script>
-
-    <!-- Background Music -->
+    <!-- Love Song (Auto Play) -->
     <audio autoplay loop>
         <source src="love_song.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
     </audio>
 
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
-        
-        <!-- Heart Framed Image -->
-        <div class="heart-frame"></div>
+
+        <!-- Photo Gallery -->
+        <div class="gallery">
+            <img src="./memory1.jpg" alt="Memory 1">
+        </div>
 
         <!-- Button to Reveal Message -->
         <button id="showMessageBtn">Click to See My Love 💝</button>
@@ -158,6 +145,25 @@
                 message.style.display = "block";
                 button.style.display = "none";
             });
+
+            // Create Floating Hearts
+            function createHeart() {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                document.body.appendChild(heart);
+
+                const size = Math.random() * 20 + 10 + "px";
+                heart.style.fontSize = size;
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+
+            setInterval(createHeart, 300);
         });
     </script>
 
