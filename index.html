@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day, Swayy! 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            background-color: #ffdde1;
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+            color: #ff4d6d;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
+        }
+
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff2e63;
+        }
+
+        #message {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffe0f7;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.3);
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Happy Valentine's Day, My Love! 💘</h1>
+        
+        <!-- Photo Gallery -->
+        <div class="gallery">
+            <img src="images/memory1.jpg" alt="Memory 1">
+        </div>
+
+        <!-- Button to Reveal Message -->
+        <button id="showMessageBtn">Click to See My Love 💝</button>
+
+        <!-- Hidden Message -->
+        <div id="message" class="hidden">
+            <p>
+                My Dearest Swayy, ❤️ <br><br>
+
+                In a world full of stars, you are my brightest one. In a garden of roses, you are the rarest bloom.  
+                This Valentine’s Day isn’t just about love—it’s about celebrating **you**—the most beautiful, elegant,  
+                and irreplaceable woman I have ever known. 💫✨<br><br>
+
+                Your smile lights up my darkest days, your laughter is the sweetest melody,  
+                and your presence feels like poetry wrapped in warmth.  
+                Every moment with you is a chapter of a love story I never want to end. 💖<br><br>
+
+                **Forever yours,**  
+                **Sudhanshu** 💞
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const button = document.getElementById("showMessageBtn");
+            const message = document.getElementById("message");
+
+            button.addEventListener("click", function() {
+                message.style.display = "block";
+                button.style.display = "none";
+            });
+        });
+    </script>
+
+</body>
+</html>
