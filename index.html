@@ -61,6 +61,27 @@
             padding: 10px;
             background: white;
         }
+.heart-frame {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    background-color: #ff4d6d;
+    clip-path: path("M150 30 
+        C75 -30 -30 90 150 220 
+        330 90 225 -30 150 30 Z");
+    width: 180px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart-frame img {
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
+    object-fit: cover;
+}
 
         /* Button */
         button {
@@ -106,9 +127,9 @@
         <h1>Happy Valentine's Day, My Love! 💘</h1>
 
         <!-- Photo Memory with Heart Frame -->
-        <div class="memory">
-            <img src="memory1.jpg" alt="Memory 1">
-        </div>
+      <div class="heart-frame">
+    <img src="./memory1.jpg" alt="Memory 1">
+</div>
 
         <!-- Button to Reveal Message -->
         <button id="showMessageBtn">Click to See My Love 💝</button>
