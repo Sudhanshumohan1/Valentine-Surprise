@@ -8,169 +8,106 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fix: Fast Scrolling */
+        html {
+            scroll-behavior: auto;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: #ffdde1;
             font-family: 'Pacifico', cursive;
             text-align: center;
             color: #ff4d6d;
             padding: 20px;
-            overflow-x: hidden;
-            position: relative;
         }
 
         h1 {
-            font-size: 2.5rem;
-            animation: fadeIn 2s ease-in-out;
+            font-size: 2.2rem;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: auto;
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
-            position: relative;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(255, 0, 100, 0.2);
         }
 
-        /* Floating Hearts Animation */
-        @keyframes floatingHearts {
-            0% { transform: translateY(0); opacity: 0.8; }
-            50% { transform: translateY(-10px); opacity: 1; }
-            100% { transform: translateY(0); opacity: 0.8; }
-        }
-
+        /* Fix: Remove Animation Lag */
         .heart {
             position: absolute;
-            color: red;
-            font-size: 30px;
-            animation: floatingHearts 1.5s infinite alternate ease-in-out;
+            font-size: 25px;
+            opacity: 0.7;
         }
 
-        .heart:nth-child(1) { top: 10%; left: 20%; animation-duration: 2s; }
-        .heart:nth-child(2) { top: 30%; right: 30%; animation-duration: 3s; }
-        .heart:nth-child(3) { bottom: 20%; left: 50%; animation-duration: 2.5s; }
-
-        /* Image with Heart Frame */
-        .gallery {
-            margin: 20px 0;
-            position: relative;
-        }
-
+        /* Fix: Optimize Image Load */
         .gallery img {
-            width: 150px;
-            height: 150px;
-            border-radius: 10px;
+            width: 140px;
+            height: 140px;
+            border-radius: 8px;
             margin: 10px;
-            border: 5px solid #ff4d6d;
-            box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.5);
-            transition: transform 0.3s ease-in-out;
+            border: 4px solid #ff4d6d;
         }
 
-        .gallery img:hover {
-            transform: scale(1.1);
-        }
-
-        /* Reveal Button */
         button {
             background-color: #ff4d6d;
             color: white;
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 10px 18px;
+            font-size: 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
+            margin-top: 15px;
         }
 
-        button:hover {
-            background-color: #ff2e63;
-        }
-
-        /* Hidden Message with Slide Animation */
+        /* Hidden Message */
         #message {
-            font-size: 1.2rem;
-            margin-top: 20px;
-            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            padding: 10px;
             background-color: #ffe0f7;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.3);
+            border-radius: 8px;
             display: none;
-            transform: translateY(50px);
-            opacity: 0;
-            transition: all 1s ease-in-out;
         }
 
-        .show {
-            display: block !important;
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Music Player (Hidden) */
+        /* Fix: Remove extra shadows */
         #loveMusic {
             display: none;
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Floating Hearts -->
-    <span class="heart">❤️</span>
-    <span class="heart">💖</span>
-    <span class="heart">💘</span>
-
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
 
-        <!-- Memory Image with Heart Frame -->
         <div class="gallery">
             <img src="memory1.jpg" alt="Memory 1">
         </div>
 
-        <!-- Reveal Button -->
         <button id="showMessageBtn">Click to See My Love 💝</button>
 
-        <!-- Hidden Message -->
         <div id="message">
-            <p>
-                My Dearest Swayy, ❤️ <br><br>
-
-                In a world full of stars, you are my brightest one. In a garden of roses, you are the rarest bloom.  
-                This Valentine’s Day isn’t just about love—it’s about celebrating **you**—the most beautiful, elegant,  
-                and irreplaceable woman I have ever known. 💫✨<br><br>
-
-                Your smile lights up my darkest days, your laughter is the sweetest melody,  
-                and your presence feels like poetry wrapped in warmth.  
-                Every moment with you is a chapter of a love story I never want to end. 💖<br><br>
-
-                **Forever yours,**  
-                **Sudhanshu** 💞
-            </p>
+            <p>My Dearest Swayy, ❤️ You are my brightest star... 💖</p>
         </div>
     </div>
 
-    <!-- Love Song -->
     <audio id="loveMusic" loop>
         <source src="love_song.mp3" type="audio/mp3">
     </audio>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const button = document.getElementById("showMessageBtn");
-            const message = document.getElementById("message");
-            const music = document.getElementById("loveMusic");
-
-            // Reveal message on button click
-            button.addEventListener("click", function() {
-                message.classList.add("show");
-                button.style.display = "none";
-
-                // Play music when user interacts
-                music.play().catch(error => console.log("Autoplay blocked by browser"));
-            });
+        document.getElementById("showMessageBtn").addEventListener("click", function() {
+            document.getElementById("message").style.display = "block";
+            document.getElementById("loveMusic").play();
         });
     </script>
 
