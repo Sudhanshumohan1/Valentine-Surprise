@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Valentine's Day, Swayy! 💖</title>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
@@ -13,6 +14,8 @@
             text-align: center;
             color: #ff4d6d;
             padding: 20px;
+            overflow-x: hidden;
+            position: relative;
         }
 
         h1 {
@@ -27,13 +30,40 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(255, 0, 100, 0.3);
+            position: relative;
+        }
+
+        /* Floating Hearts Animation */
+        @keyframes floatingHearts {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.8; }
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 30px;
+            animation: floatingHearts 1.5s infinite alternate ease-in-out;
+        }
+
+        .heart:nth-child(1) { top: 10%; left: 20%; animation-duration: 2s; }
+        .heart:nth-child(2) { top: 30%; right: 30%; animation-duration: 3s; }
+        .heart:nth-child(3) { bottom: 20%; left: 50%; animation-duration: 2.5s; }
+
+        /* Image with Heart Frame */
+        .gallery {
+            margin: 20px 0;
+            position: relative;
         }
 
         .gallery img {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 10px;
             margin: 10px;
+            border: 5px solid #ff4d6d;
+            box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.5);
             transition: transform 0.3s ease-in-out;
         }
 
@@ -41,6 +71,7 @@
             transform: scale(1.1);
         }
 
+        /* Reveal Button */
         button {
             background-color: #ff4d6d;
             color: white;
@@ -57,6 +88,7 @@
             background-color: #ff2e63;
         }
 
+        /* Hidden Message with Slide Animation */
         #message {
             font-size: 1.2rem;
             margin-top: 20px;
@@ -65,35 +97,44 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(255, 0, 100, 0.3);
             display: none;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease-in-out;
         }
 
-        .hidden {
+        .show {
+            display: block !important;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Music Player (Hidden) */
+        #loveMusic {
             display: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
 
+    <!-- Floating Hearts -->
+    <span class="heart">❤️</span>
+    <span class="heart">💖</span>
+    <span class="heart">💘</span>
+
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
-        
-        <!-- Photo Gallery -->
+
+        <!-- Memory Image with Heart Frame -->
         <div class="gallery">
-            <img src="https://via.placeholder.com/100" alt="Memory 1">
-            <img src="https://via.placeholder.com/100" alt="Memory 2">
-            <img src="https://via.placeholder.com/100" alt="Memory 3">
+            <img src="memory1.jpg" alt="Memory 1">
         </div>
 
-        <!-- Button to Reveal Message -->
+        <!-- Reveal Button -->
         <button id="showMessageBtn">Click to See My Love 💝</button>
 
         <!-- Hidden Message -->
-        <div id="message" class="hidden">
+        <div id="message">
             <p>
                 My Dearest Swayy, ❤️ <br><br>
 
@@ -111,14 +152,24 @@
         </div>
     </div>
 
+    <!-- Love Song -->
+    <audio id="loveMusic" loop>
+        <source src="love_song.mp3" type="audio/mp3">
+    </audio>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const button = document.getElementById("showMessageBtn");
             const message = document.getElementById("message");
+            const music = document.getElementById("loveMusic");
 
+            // Reveal message on button click
             button.addEventListener("click", function() {
-                message.style.display = "block";
+                message.classList.add("show");
                 button.style.display = "none";
+
+                // Play music when user interacts
+                music.play().catch(error => console.log("Autoplay blocked by browser"));
             });
         });
     </script>
