@@ -26,10 +26,12 @@
             text-align: center;
             color: #ff4d6d;
             padding: 20px;
+            position: relative;
         }
 
         h1 {
             font-size: 2.2rem;
+            margin-bottom: 15px;
         }
 
         .container {
@@ -39,13 +41,21 @@
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0px 2px 8px rgba(255, 0, 100, 0.2);
+            position: relative;
         }
 
-        /* Fix: Remove Animation Lag */
+        /* Heart Animation */
         .heart {
             position: absolute;
             font-size: 25px;
-            opacity: 0.7;
+            color: red;
+            animation: float 2s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
 
         /* Fix: Optimize Image Load */
@@ -55,6 +65,11 @@
             border-radius: 8px;
             margin: 10px;
             border: 4px solid #ff4d6d;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.1);
         }
 
         button {
@@ -66,6 +81,11 @@
             border-radius: 6px;
             cursor: pointer;
             margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff2e63;
         }
 
         /* Hidden Message */
@@ -76,9 +96,10 @@
             background-color: #ffe0f7;
             border-radius: 8px;
             display: none;
+            box-shadow: 0px 2px 8px rgba(255, 0, 100, 0.2);
         }
 
-        /* Fix: Remove extra shadows */
+        /* Music */
         #loveMusic {
             display: none;
         }
@@ -89,24 +110,50 @@
     <div class="container">
         <h1>Happy Valentine's Day, My Love! 💘</h1>
 
+        <!-- Floating Hearts -->
+        <div class="heart" style="top: 10px; left: 20px;">❤️</div>
+        <div class="heart" style="top: 40px; right: 30px;">💖</div>
+
+        <!-- Photo Gallery -->
         <div class="gallery">
             <img src="memory1.jpg" alt="Memory 1">
         </div>
 
+        <!-- Button to Reveal Message -->
         <button id="showMessageBtn">Click to See My Love 💝</button>
 
+        <!-- Hidden Message -->
         <div id="message">
-            <p>My Dearest Swayy, ❤️ You are my brightest star... 💖</p>
+            <p>
+                My Dearest Swayy, ❤️ <br><br>
+
+                In a world full of stars, you are my brightest one. In a garden of roses, you are the rarest bloom.  
+                This Valentine’s Day isn’t just about love—it’s about celebrating **you**—the most beautiful, elegant,  
+                and irreplaceable woman I have ever known. 💫✨<br><br>
+
+                Your smile lights up my darkest days, your laughter is the sweetest melody,  
+                and your presence feels like poetry wrapped in warmth.  
+                Every moment with you is a chapter of a love story I never want to end. 💖<br><br>
+
+                **Forever yours,**  
+                **Sudhanshu** 💞
+            </p>
         </div>
     </div>
 
-    <audio id="loveMusic" loop>
+    <!-- Background Music -->
+    <audio id="loveMusic" autoplay loop>
         <source src="love_song.mp3" type="audio/mp3">
     </audio>
 
     <script>
         document.getElementById("showMessageBtn").addEventListener("click", function() {
             document.getElementById("message").style.display = "block";
+            this.style.display = "none"; // Hide button after clicking
+        });
+
+        // Play music automatically on page load
+        window.addEventListener("load", function() {
             document.getElementById("loveMusic").play();
         });
     </script>
